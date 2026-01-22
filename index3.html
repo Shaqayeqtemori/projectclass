@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>Form with Data Display</title>
+
+<style>
+  body {
+    font-family: sans-serif;
+    background: #f4f6f8;
+    padding: 40px;
+  }
+
+  form {
+    background: white;
+    padding: 20px;
+    max-width: 350px;
+    border-radius: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .data {
+    margin-top: 20px;
+    background: #e9f7ef;
+    padding: 10px;
+    border-radius: 5px;
+  }
+</style>
+</head>
+
+<body>
+
+<form id="myForm">
+
+  <input type="text" id="name" placeholder="Name">
+  <input type="email" id="email" placeholder="Email">
+
+  <button type="submit">Submit</button>
+
+  <div id="error" class="error"></div>
+</form>
+
+<div id="showData" class="data" style="display:none;"></div>
+
+<script>
+  const form = document.getElementById("myForm");
+  const errorBox = document.getElementById("error");
+  const showData = document.getElementById("showData");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    errorBox.textContent = "";
+    showData.style.display = "none";
+    showData.innerHTML = "";
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (name === "") {
+      errorBox.textContent = " Name is required";
+      return;
+    }
+
+    if (email === "") {
+      errorBox.textContent = " Email is required";
+      return;
+    }
+
+
+    showData.style.display = "block";
+    showData.innerHTML = `
+      <h4>Submitted Data</h4>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+    `;
+
+    form.reset();
+  });
+</script>
+
+
+</body>
+</html>
